@@ -3,8 +3,7 @@ from mysql.connector import Error
 import base64
 import classes as cl
 
-st.set_page_config(layout='wide', page_title='Beyond Heavens',
-                   initial_sidebar_state='collapsed')
+st.set_page_config(layout='wide', page_title='Beyond Heavens')
 
 est_connection = cl.EstablishConnection()
 connection = est_connection.database_connection()
@@ -59,10 +58,10 @@ def render_video(existing_records):
 
 total_videos = count_existing_files()
 if total_videos > 0:
-    st.title("Your Uploaded files:")
+    st.title("Your uploaded files:")
     existing_records = extract_records()
     render_video(existing_records)
     # self.connection.close()
 else:
     # self.connection.close()
-    st.title("No Uploaded files!")
+    st.title("No uploaded files!")
