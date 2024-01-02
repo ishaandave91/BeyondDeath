@@ -1,5 +1,8 @@
+change senddate column type to date time and process accordingly
+time input in hours only
+user should only see the vids that have self email id
+use server side mechanism for scheduling send email function
+st.write formatting options
 Extract records only once
-move file name edit to another function at least
 instead of if button clicked use call-backs everywhere
-Add logic to manage duplicate file names: append date-time
 Migrate to flask. Ref: \app6_weather_prediction

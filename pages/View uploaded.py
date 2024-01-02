@@ -25,7 +25,7 @@ def count_existing_files():
 def extract_records():
     try:
         cursor = connection.cursor()
-        records_query = "SELECT filename, content FROM videos"
+        records_query = "SELECT filename, content, receiveremailid, senddate FROM videos"
         cursor.execute(records_query)
         records = cursor.fetchall()
         cursor.close()
@@ -36,12 +36,20 @@ def extract_records():
 
 
 def render_video(existing_records):
-    for filename, content in existing_records:
+    for filename, content, receiveremailid, senddate in existing_records:
         try:
             button_name = filename
-            watch_btn_key = f'watch_btn_{filename}'
-            watch_button_clicked = st.button(f"Watch: {button_name}", use_container_width=True,
-                                             key=watch_btn_key)
+            col3, col4 = st.columns(2)
+            with col3:
+                watch_btn_key = f'watch_btn_{filename}'
+                watch_button_clicked = st.button(f"Watch: {button_name}", use_container_width=True,
+                                                 key=watch_btn_key)
+            with col4:
+                st.write("**Recipient:** ", receiveremailid)
+                st.write("**Scheduled send date & time:** ", senddate)
+
+            st.write("<hr>", unsafe_allow_html=True)
+            
             if watch_button_clicked:
                 decoded_content = base64.b64decode(content)
                 video_frame = st.video(decoded_content, format="video/mp4", start_time=0)
@@ -61,7 +69,5 @@ if total_videos > 0:
     st.title("Your uploaded files:")
     existing_records = extract_records()
     render_video(existing_records)
-    # self.connection.close()
 else:
-    # self.connection.close()
     st.title("No uploaded files!")

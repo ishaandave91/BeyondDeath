@@ -17,3 +17,9 @@ browse_files_btn_css = '''
 
             </style>
             '''
+
+hide_fileuploader_extended = """
+.uploadedFiles {
+    display: none;
+}
+"""
